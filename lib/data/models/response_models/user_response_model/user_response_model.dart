@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:swim_success/data/models/address_model/address_model.dart';
 import 'package:swim_success/data/models/company_model/company_model.dart';
+import 'package:swim_success/domain/entities/user_entity/user_entity.dart';
 
 part 'user_response_model.g.dart';
 
@@ -37,4 +38,17 @@ class UserResponseModel extends Equatable {
     address,
     company,
   ];
+}
+
+extension UserResponseMapper on UserResponseModel {
+  UserEntity toEntity() {
+    return UserEntity(
+      id: id,
+      name: name,
+      username: username,
+      email: email,
+      address: address.toEntity(),
+      company: company.toEntity(),
+    );
+  }
 }

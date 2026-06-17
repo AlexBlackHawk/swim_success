@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:swim_success/domain/entities/company_entity/company_entity.dart';
 
 part 'company_model.g.dart';
 
@@ -26,4 +27,14 @@ class CompanyModel extends Equatable {
     catchPhrase,
     bs,
   ];
+}
+
+extension CompanyMapper on CompanyModel {
+  CompanyEntity toEntity() {
+    return CompanyEntity(
+      name: name,
+      catchPhrase: catchPhrase,
+      bs: bs,
+    );
+  }
 }
