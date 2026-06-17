@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:swim_success/domain/entities/geo_entity/geo_entity.dart';
 
 part 'geo_model.g.dart';
 
@@ -23,4 +24,13 @@ class GeoModel extends Equatable {
     lat,
     lng,
   ];
+}
+
+extension GeoMapper on GeoModel {
+  GeoEntity toEntity() {
+    return GeoEntity(
+      lat: lat,
+      lng: lng,
+    );
+  }
 }
