@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:swim_success/data/models/geo_model/geo_model.dart';
+import 'package:swim_success/data/models/response_models/geo_model/geo_model.dart';
 import 'package:swim_success/domain/entities/address_entity/address_entity.dart';
 
 part 'address_model.g.dart';

@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:swim_success/data/models/address_model/address_model.dart';
-import 'package:swim_success/data/models/company_model/company_model.dart';
+import 'package:swim_success/data/models/response_models/address_model/address_model.dart';
+import 'package:swim_success/data/models/response_models/company_model/company_model.dart';
 import 'package:swim_success/domain/entities/user_entity/user_entity.dart';
 
-part 'user_response_model.g.dart';
+part 'user_model.g.dart';
 
 @JsonSerializable()
-class UserResponseModel extends Equatable {
-  const UserResponseModel({
+class UserModel extends Equatable {
+  const UserModel({
     required this.id,
     required this.name,
     required this.username,
@@ -24,10 +24,10 @@ class UserResponseModel extends Equatable {
   final AddressModel address;
   final CompanyModel company;
 
-  factory UserResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$UserResponseModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserResponseModelToJson(this);
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   @override
   List<Object?> get props => [
@@ -40,7 +40,7 @@ class UserResponseModel extends Equatable {
   ];
 }
 
-extension UserResponseMapper on UserResponseModel {
+extension UserMapper on UserModel {
   UserEntity toEntity() {
     return UserEntity(
       id: id,
