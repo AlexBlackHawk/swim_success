@@ -22,6 +22,10 @@ import 'package:swim_success/data/repositories/users_repository_impl.dart'
 import 'package:swim_success/domain/repositories/posts_repository.dart' as _i13;
 import 'package:swim_success/domain/repositories/users_repository.dart'
     as _i852;
+import 'package:swim_success/domain/usecases/posts_use_cases/send_pace_seconds_use_case.dart'
+    as _i741;
+import 'package:swim_success/domain/usecases/users_use_cases/get_users_use_case.dart'
+    as _i273;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i174.GetIt $configureDependencies(
@@ -39,6 +43,12 @@ _i174.GetIt $configureDependencies(
   );
   gh.lazySingleton<_i852.UsersRepository>(
     () => _i752.UsersRepositoryImpl(gh<_i297.UsersApi>()),
+  );
+  gh.factory<_i741.SendPaceSecondsUseCase>(
+    () => _i741.SendPaceSecondsUseCase(gh<_i13.PostsRepository>()),
+  );
+  gh.factory<_i273.CreateAccountingRequestUseCase>(
+    () => _i273.CreateAccountingRequestUseCase(gh<_i852.UsersRepository>()),
   );
   return getIt;
 }
