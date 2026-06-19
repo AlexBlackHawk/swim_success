@@ -17,6 +17,14 @@ class UsersListPage extends StatelessWidget {
             backgroundColor: Colors.grey.shade300,
             appBar: AppBar(
               leading: BackButton(),
+              flexibleSpace: Visibility(
+                visible: state is Success,
+                child: TextField(
+                  onChanged: (text) {
+                    locator<UsersBloc>().add(UsersEvent.searchUsers(query: text));
+                  },
+                ),
+              ),
             ),
             body: RefreshIndicator(
               onRefresh: () async => locator<UsersBloc>()..add(UsersEvent.fetchUsers()),
@@ -26,14 +34,14 @@ class UsersListPage extends StatelessWidget {
                 error: () => Center(child: Text(
                   "Error",
                 )),
-                success: (users) => ListView.separated(
-                  itemCount: users.length,
+                success: (users, searchedUsers) => ListView.separated(
+                  itemCount: searchedUsers == null ? users.length : searchedUsers.length,
                   separatorBuilder: (context, index) =>
                       Divider(
                         color: Colors.black,
                       ),
                   itemBuilder: (context, index) {
-                    final UserEntity user = users[index];
+                    final UserEntity user = searchedUsers == null ? users[index] : searchedUsers[index];
 
                     return ListTile(
                       title: Text(

@@ -55,11 +55,12 @@ extension UsersEventPatterns on UsersEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  fetchUsers,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchUsers value)?  fetchUsers,TResult Function( SearchUsers value)?  searchUsers,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Started() when fetchUsers != null:
-return fetchUsers(_that);case _:
+case FetchUsers() when fetchUsers != null:
+return fetchUsers(_that);case SearchUsers() when searchUsers != null:
+return searchUsers(_that);case _:
   return orElse();
 
 }
@@ -77,11 +78,12 @@ return fetchUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  fetchUsers,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchUsers value)  fetchUsers,required TResult Function( SearchUsers value)  searchUsers,}){
 final _that = this;
 switch (_that) {
-case _Started():
-return fetchUsers(_that);case _:
+case FetchUsers():
+return fetchUsers(_that);case SearchUsers():
+return searchUsers(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +100,12 @@ return fetchUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  fetchUsers,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchUsers value)?  fetchUsers,TResult? Function( SearchUsers value)?  searchUsers,}){
 final _that = this;
 switch (_that) {
-case _Started() when fetchUsers != null:
-return fetchUsers(_that);case _:
+case FetchUsers() when fetchUsers != null:
+return fetchUsers(_that);case SearchUsers() when searchUsers != null:
+return searchUsers(_that);case _:
   return null;
 
 }
@@ -119,10 +122,11 @@ return fetchUsers(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchUsers,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchUsers,TResult Function( String query)?  searchUsers,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Started() when fetchUsers != null:
-return fetchUsers();case _:
+case FetchUsers() when fetchUsers != null:
+return fetchUsers();case SearchUsers() when searchUsers != null:
+return searchUsers(_that.query);case _:
   return orElse();
 
 }
@@ -140,10 +144,11 @@ return fetchUsers();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchUsers,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchUsers,required TResult Function( String query)  searchUsers,}) {final _that = this;
 switch (_that) {
-case _Started():
-return fetchUsers();case _:
+case FetchUsers():
+return fetchUsers();case SearchUsers():
+return searchUsers(_that.query);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +165,11 @@ return fetchUsers();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchUsers,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchUsers,TResult? Function( String query)?  searchUsers,}) {final _that = this;
 switch (_that) {
-case _Started() when fetchUsers != null:
-return fetchUsers();case _:
+case FetchUsers() when fetchUsers != null:
+return fetchUsers();case SearchUsers() when searchUsers != null:
+return searchUsers(_that.query);case _:
   return null;
 
 }
@@ -174,8 +180,8 @@ return fetchUsers();case _:
 /// @nodoc
 
 
-class _Started implements UsersEvent {
-  const _Started();
+class FetchUsers implements UsersEvent {
+  const FetchUsers();
   
 
 
@@ -185,7 +191,7 @@ class _Started implements UsersEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Started);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FetchUsers);
 }
 
 
@@ -202,6 +208,72 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class SearchUsers implements UsersEvent {
+  const SearchUsers({required this.query});
+  
+
+ final  String query;
+
+/// Create a copy of UsersEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SearchUsersCopyWith<SearchUsers> get copyWith => _$SearchUsersCopyWithImpl<SearchUsers>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchUsers&&(identical(other.query, query) || other.query == query));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,query);
+
+@override
+String toString() {
+  return 'UsersEvent.searchUsers(query: $query)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SearchUsersCopyWith<$Res> implements $UsersEventCopyWith<$Res> {
+  factory $SearchUsersCopyWith(SearchUsers value, $Res Function(SearchUsers) _then) = _$SearchUsersCopyWithImpl;
+@useResult
+$Res call({
+ String query
+});
+
+
+
+
+}
+/// @nodoc
+class _$SearchUsersCopyWithImpl<$Res>
+    implements $SearchUsersCopyWith<$Res> {
+  _$SearchUsersCopyWithImpl(this._self, this._then);
+
+  final SearchUsers _self;
+  final $Res Function(SearchUsers) _then;
+
+/// Create a copy of UsersEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? query = null,}) {
+  return _then(SearchUsers(
+query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$UsersState {
@@ -320,13 +392,13 @@ return success(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  error,TResult Function( List<UserEntity> users)?  success,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  error,TResult Function( List<UserEntity> users,  List<UserEntity>? searchedUsers)?  success,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Error() when error != null:
 return error();case Success() when success != null:
-return success(_that.users);case _:
+return success(_that.users,_that.searchedUsers);case _:
   return orElse();
 
 }
@@ -344,13 +416,13 @@ return success(_that.users);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  error,required TResult Function( List<UserEntity> users)  success,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  error,required TResult Function( List<UserEntity> users,  List<UserEntity>? searchedUsers)  success,}) {final _that = this;
 switch (_that) {
 case Initial():
 return initial();case Loading():
 return loading();case Error():
 return error();case Success():
-return success(_that.users);case _:
+return success(_that.users,_that.searchedUsers);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -367,13 +439,13 @@ return success(_that.users);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  error,TResult? Function( List<UserEntity> users)?  success,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  error,TResult? Function( List<UserEntity> users,  List<UserEntity>? searchedUsers)?  success,}) {final _that = this;
 switch (_that) {
 case Initial() when initial != null:
 return initial();case Loading() when loading != null:
 return loading();case Error() when error != null:
 return error();case Success() when success != null:
-return success(_that.users);case _:
+return success(_that.users,_that.searchedUsers);case _:
   return null;
 
 }
@@ -481,7 +553,7 @@ String toString() {
 
 
 class Success implements UsersState {
-  const Success({required final  List<UserEntity> users}): _users = users;
+  const Success({required final  List<UserEntity> users, final  List<UserEntity>? searchedUsers}): _users = users,_searchedUsers = searchedUsers;
   
 
  final  List<UserEntity> _users;
@@ -489,6 +561,15 @@ class Success implements UsersState {
   if (_users is EqualUnmodifiableListView) return _users;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_users);
+}
+
+ final  List<UserEntity>? _searchedUsers;
+ List<UserEntity>? get searchedUsers {
+  final value = _searchedUsers;
+  if (value == null) return null;
+  if (_searchedUsers is EqualUnmodifiableListView) return _searchedUsers;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
 }
 
 
@@ -502,16 +583,16 @@ $SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&const DeepCollectionEquality().equals(other._users, _users));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Success&&const DeepCollectionEquality().equals(other._users, _users)&&const DeepCollectionEquality().equals(other._searchedUsers, _searchedUsers));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_users));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_users),const DeepCollectionEquality().hash(_searchedUsers));
 
 @override
 String toString() {
-  return 'UsersState.success(users: $users)';
+  return 'UsersState.success(users: $users, searchedUsers: $searchedUsers)';
 }
 
 
@@ -522,7 +603,7 @@ abstract mixin class $SuccessCopyWith<$Res> implements $UsersStateCopyWith<$Res>
   factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
 @useResult
 $Res call({
- List<UserEntity> users
+ List<UserEntity> users, List<UserEntity>? searchedUsers
 });
 
 
@@ -539,10 +620,11 @@ class _$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of UsersState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? users = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? users = null,Object? searchedUsers = freezed,}) {
   return _then(Success(
 users: null == users ? _self._users : users // ignore: cast_nullable_to_non_nullable
-as List<UserEntity>,
+as List<UserEntity>,searchedUsers: freezed == searchedUsers ? _self._searchedUsers : searchedUsers // ignore: cast_nullable_to_non_nullable
+as List<UserEntity>?,
   ));
 }
 
