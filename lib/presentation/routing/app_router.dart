@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swim_success/presentation/pages/users/user_details_page.dart';
 import 'package:swim_success/presentation/pages/users/users_list_page.dart';
 import 'package:swim_success/presentation/routing/enums/app_page.dart';
 
