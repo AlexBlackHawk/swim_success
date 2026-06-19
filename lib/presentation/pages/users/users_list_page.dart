@@ -18,34 +18,37 @@ class UsersListPage extends StatelessWidget {
             appBar: AppBar(
               leading: BackButton(),
             ),
-            body: state.when(
-              initial: () => Container(),
-              loading: () => Center(child: CircularProgressIndicator()),
-              error: () => Center(child: Text(
-                "Error",
-              )),
-              success: (users) => ListView.separated(
-                itemCount: users.length,
-                separatorBuilder: (context, index) =>
-                    Divider(
-                      color: Colors.black,
-                    ),
-                itemBuilder: (context, index) {
-                  final UserEntity user = users[index];
+            body: RefreshIndicator(
+              onRefresh: () async => locator<UsersBloc>()..add(UsersEvent.fetchUsers()),
+              child: state.when(
+                initial: () => Container(),
+                loading: () => Center(child: CircularProgressIndicator()),
+                error: () => Center(child: Text(
+                  "Error",
+                )),
+                success: (users) => ListView.separated(
+                  itemCount: users.length,
+                  separatorBuilder: (context, index) =>
+                      Divider(
+                        color: Colors.black,
+                      ),
+                  itemBuilder: (context, index) {
+                    final UserEntity user = users[index];
 
-                  return ListTile(
-                    title: Text(
-                      user.name,
-                    ),
-                    subtitle: Text(
-                      user.email,
-                    ),
-                    trailing: Text(
-                      user.address.phone,
-                    ),
-                    onTap: () {},
-                  );
-                },
+                    return ListTile(
+                      title: Text(
+                        user.name,
+                      ),
+                      subtitle: Text(
+                        user.email,
+                      ),
+                      trailing: Text(
+                        user.address.phone,
+                      ),
+                      onTap: () {},
+                    );
+                  },
+                ),
               ),
             ),
           );
