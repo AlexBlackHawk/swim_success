@@ -16,6 +16,8 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     on<UsersEvent>((event, emit) async {
       await event.map(
         fetchUsers: (_) async => await _fetchUsers(emit),
+        searchUsers: (event) => _searchUsers(event, emit),
+
       );
     });
   }
@@ -29,6 +31,32 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       final List<UserEntity> fetchedUsers = await _getUsersUseCase();
 
       emit(UsersState.success(users: fetchedUsers));
+    } catch (_) {
+      emit(UsersState.error());
+    }
+  }
+
+  Future<void> _searchUsers(SearchUsers event, Emitter<UsersState> emit) async {
+    try {
+      final currentState = state;
+
+      if (currentState is! Success) return;
+
+      emit(
+        currentState.copyWith(
+          searchedUsers: null,
+        )
+      );
+
+      emit(UsersState.loading());
+
+      final List<UserEntity> searchedUsers = currentState.users.where((user) => user.name.contains(event.query)).toList();
+
+      emit(
+        currentState.copyWith(
+          searchedUsers: searchedUsers,
+        )
+      );
     } catch (_) {
       emit(UsersState.error());
     }

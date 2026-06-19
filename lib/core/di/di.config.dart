@@ -38,7 +38,6 @@ _i174.GetIt $configureDependencies(
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
   final appModule = _$AppModule();
   gh.lazySingleton<_i361.Dio>(() => appModule.dio);
-  gh.lazySingleton<_i566.UsersBloc>(() => _i566.UsersBloc());
   gh.lazySingleton<_i147.PostsApi>(() => appModule.postsApi(gh<_i361.Dio>()));
   gh.lazySingleton<_i297.UsersApi>(() => appModule.usersApi(gh<_i361.Dio>()));
   gh.lazySingleton<_i13.PostsRepository>(
@@ -50,8 +49,11 @@ _i174.GetIt $configureDependencies(
   gh.factory<_i741.SendPaceSecondsUseCase>(
     () => _i741.SendPaceSecondsUseCase(gh<_i13.PostsRepository>()),
   );
-  gh.factory<_i273.CreateAccountingRequestUseCase>(
-    () => _i273.CreateAccountingRequestUseCase(gh<_i852.UsersRepository>()),
+  gh.factory<_i273.GetUsersUseCase>(
+    () => _i273.GetUsersUseCase(gh<_i852.UsersRepository>()),
+  );
+  gh.lazySingleton<_i566.UsersBloc>(
+    () => _i566.UsersBloc(getUsersUseCase: gh<_i273.GetUsersUseCase>()),
   );
   return getIt;
 }

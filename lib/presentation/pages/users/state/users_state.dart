@@ -10,5 +10,6 @@ class UsersState with _$UsersState {
 
   const factory UsersState.success({
     required List<UserEntity> users,
+    List<UserEntity>? searchedUsers,
   }) = Success;
 }
