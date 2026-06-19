@@ -26,6 +26,8 @@ import 'package:swim_success/domain/usecases/posts_use_cases/send_pace_seconds_u
     as _i741;
 import 'package:swim_success/domain/usecases/users_use_cases/get_users_use_case.dart'
     as _i273;
+import 'package:swim_success/presentation/pages/users/state/users_bloc.dart'
+    as _i566;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i174.GetIt $configureDependencies(
@@ -36,6 +38,7 @@ _i174.GetIt $configureDependencies(
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
   final appModule = _$AppModule();
   gh.lazySingleton<_i361.Dio>(() => appModule.dio);
+  gh.lazySingleton<_i566.UsersBloc>(() => _i566.UsersBloc());
   gh.lazySingleton<_i147.PostsApi>(() => appModule.postsApi(gh<_i361.Dio>()));
   gh.lazySingleton<_i297.UsersApi>(() => appModule.usersApi(gh<_i361.Dio>()));
   gh.lazySingleton<_i13.PostsRepository>(
