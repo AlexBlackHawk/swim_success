@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:swim_success/core/service_locator/locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swim_success/domain/entities/user_entity/user_entity.dart';
 import 'package:swim_success/presentation/pages/users/state/users_bloc.dart';
+import 'package:swim_success/presentation/routing/enums/app_page.dart';
 
 class UsersListPage extends StatelessWidget {
   const UsersListPage({super.key});
@@ -53,7 +55,7 @@ class UsersListPage extends StatelessWidget {
                       trailing: Text(
                         user.address.phone,
                       ),
-                      onTap: () {},
+                      onTap: () => context.push(userDetailsPageRoute.path, extra: user),
                     );
                   },
                 ),
