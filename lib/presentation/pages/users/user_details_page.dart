@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:swim_success/domain/entities/user_entity/user_entity.dart';
 import 'package:swim_success/presentation/pages/users/widgets/user_detail_item.dart';
 
 class UserDetailsPage extends StatelessWidget {
-  const UserDetailsPage({super.key});
+  const UserDetailsPage({super.key, required this.user});
+
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -16,56 +19,56 @@ class UserDetailsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UserDetailItem(
-            text: "id",
+            text: user.id.toString(),
           ),
           UserDetailItem(
-            text: "name",
+            text: user.name,
           ),
           UserDetailItem(
             icon: Icons.person,
-            text: "username",
+            text: user.username,
           ),
           UserDetailItem(
             icon: Icons.mail,
-            text: "email",
+            text: user.email,
           ),
           UserDetailItem(
             icon: Icons.map,
-            text: "street",
+            text: user.address.street,
           ),
           UserDetailItem(
             icon: Icons.apartment,
-            text: "suite",
+            text: user.address.suite,
           ),
           UserDetailItem(
             icon: Icons.location_city,
-            text: "city",
+            text: user.address.city,
           ),
           UserDetailItem(
             icon: Icons.markunread_mailbox,
-            text: "zipcode",
+            text: user.address.zipcode,
           ),
           UserDetailItem(
             icon: Icons.location_on,
-            text: "geo",
+            text: "${user.address.geo.lat} ${user.address.geo.lng}",
           ),
           UserDetailItem(
             icon: Icons.phone,
-            text: "phone",
+            text: user.address.phone,
           ),
           UserDetailItem(
             icon: Icons.language,
-            text: "website",
+            text: user.address.website,
           ),
           UserDetailItem(
             icon: Icons.factory,
-            text: "name",
+            text: user.company.name,
           ),
           UserDetailItem(
-            text: "catchPhrase",
+            text: user.company.catchPhrase,
           ),
           UserDetailItem(
-            text: "bs",
+            text: user.company.bs,
           ),
         ],
       ),
