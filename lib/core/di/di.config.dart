@@ -26,6 +26,8 @@ import 'package:swim_success/domain/usecases/posts_use_cases/send_pace_seconds_u
     as _i741;
 import 'package:swim_success/domain/usecases/users_use_cases/get_users_use_case.dart'
     as _i273;
+import 'package:swim_success/presentation/pages/posts/state/posts_bloc.dart'
+    as _i658;
 import 'package:swim_success/presentation/pages/users/state/users_bloc.dart'
     as _i566;
 
@@ -51,6 +53,11 @@ _i174.GetIt $configureDependencies(
   );
   gh.factory<_i273.GetUsersUseCase>(
     () => _i273.GetUsersUseCase(gh<_i852.UsersRepository>()),
+  );
+  gh.lazySingleton<_i658.PostsBloc>(
+    () => _i658.PostsBloc(
+      sendPaceSecondsUseCase: gh<_i741.SendPaceSecondsUseCase>(),
+    ),
   );
   gh.lazySingleton<_i566.UsersBloc>(
     () => _i566.UsersBloc(getUsersUseCase: gh<_i273.GetUsersUseCase>()),
