@@ -13,11 +13,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   UsersBloc({
     required this._getUsersUseCase,
   }) : super(const UsersState.initial()) {
-    on<UsersEvent>((event, emit) async {
-      await event.map(
+    on<UsersEvent>((event, emit) {
+      event.map(
         fetchUsers: (_) async => await _fetchUsers(emit),
         searchUsers: (event) => _searchUsers(event, emit),
-
       );
     });
   }
@@ -36,17 +35,20 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     }
   }
 
-  Future<void> _searchUsers(SearchUsers event, Emitter<UsersState> emit) async {
+  void _searchUsers(SearchUsers event, Emitter<UsersState> emit) {
     try {
       final currentState = state;
 
       if (currentState is! Success) return;
 
-      emit(
-        currentState.copyWith(
-          searchedUsers: null,
-        )
-      );
+      if (event.query.isEmpty) {
+        emit(
+            currentState.copyWith(
+              searchedUsers: null,
+            )
+        );
+        return;
+      }
 
       emit(UsersState.loading());
 
